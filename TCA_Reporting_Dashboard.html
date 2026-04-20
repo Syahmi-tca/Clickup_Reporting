@@ -40,18 +40,17 @@
 <body class="bg-white p-3 font-sans">
 <div class="w-full max-w-5xl mx-auto">
 
-  <div class="flex items-center gap-1 mb-4 bg-gray-50 p-1 rounded-lg flex-wrap">
-    <button class="tab-btn active" onclick="switchTab('executive',this)">Executive</button>
-    <button class="tab-btn" onclick="switchTab('engineering',this)">Engineering</button>
-    <button class="tab-btn" onclick="switchTab('supplychain',this)">Supply chain</button>
-    <button class="tab-btn" onclick="switchTab('production',this)">Production</button>
-    <button class="tab-btn" onclick="switchTab('slippage',this)">Slippage</button>
-    <button class="tab-btn" onclick="switchTab('velocity',this)">Velocity</button>
-    <button class="tab-btn" onclick="switchTab('delivery',this)">Delivery</button>
+  <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+    <div class="flex items-center gap-1 bg-gray-50 p-1 rounded-lg flex-wrap">
+      <button class="tab-btn active" onclick="switchTab('slippage',this)">Slippage</button>
+      <button class="tab-btn" onclick="switchTab('velocity',this)">Velocity</button>
+      <button class="tab-btn" onclick="switchTab('delivery',this)">Delivery</button>
+    </div>
+    <div class="text-xs text-gray-400" id="last-updated"></div>
   </div>
 
-  <!-- Executive -->
-  <div id="tab-executive" class="tab-panel active space-y-4">
+  <!-- Executive (hidden — native in ClickUp) -->
+  <div id="tab-executive" class="tab-panel space-y-4" style="display:none">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <div class="bg-gray-50 rounded-lg p-3 text-center"><div class="text-2xl font-medium" id="m-active"></div><div class="text-xs text-gray-500 mt-1">Active projects</div></div>
       <div class="bg-gray-50 rounded-lg p-3 text-center"><div class="text-2xl font-medium text-pink-600" id="m-rft-wk"></div><div class="text-xs text-gray-500 mt-1">RFT this week</div></div>
@@ -79,8 +78,8 @@
     </div>
   </div>
 
-  <!-- Engineering -->
-  <div id="tab-engineering" class="tab-panel space-y-4">
+  <!-- Engineering (hidden — native in ClickUp) -->
+  <div id="tab-engineering" class="tab-panel space-y-4" style="display:none">
     <div class="grid grid-cols-3 gap-3">
       <div class="bg-gray-50 rounded-lg p-3 text-center"><div class="text-2xl font-medium text-emerald-600" id="m-eng-done"></div><div class="text-xs text-gray-500 mt-1">Engineering complete</div></div>
       <div class="bg-gray-50 rounded-lg p-3 text-center"><div class="text-2xl font-medium text-amber-500" id="m-eng-out2"></div><div class="text-xs text-gray-500 mt-1">Engineering outstanding</div></div>
@@ -102,8 +101,8 @@
     </div>
   </div>
 
-  <!-- Supply chain -->
-  <div id="tab-supplychain" class="tab-panel">
+  <!-- Supply chain (hidden — native in ClickUp) -->
+  <div id="tab-supplychain" class="tab-panel" style="display:none">
     <div class="sc-kpi-row">
       <div class="sc-kpi">        <label>SC Lines Tracked</label><div class="val" id="sc-m-total"></div><div class="sub">Across all active projects</div></div>
       <div class="sc-kpi blue">   <label>With Plan</label>        <div class="val" id="sc-m-plan"></div><div class="sub">Week assigned to supplier</div></div>
@@ -145,8 +144,8 @@
     </div>
   </div>
 
-  <!-- Production -->
-  <div id="tab-production" class="tab-panel space-y-4">
+  <!-- Production (hidden — native in ClickUp) -->
+  <div id="tab-production" class="tab-panel space-y-4" style="display:none">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <div class="bg-gray-50 rounded-lg p-3 text-center"><div class="text-2xl font-medium text-pink-600" id="m-prod-rft-wk"></div><div class="text-xs text-gray-500 mt-1">RFT this week</div></div>
       <div class="bg-gray-50 rounded-lg p-3 text-center"><div class="text-2xl font-medium text-blue-500" id="m-prod-rft-4wk"></div><div class="text-xs text-gray-500 mt-1">RFT next 4 wks</div></div>
@@ -174,7 +173,7 @@
   </div>
 
   <!-- Slippage -->
-  <div id="tab-slippage" class="tab-panel space-y-4">
+  <div id="tab-slippage" class="tab-panel active space-y-4">
     <div class="grid grid-cols-3 gap-3">
       <div class="bg-gray-50 rounded-lg p-3 text-center"><div class="text-2xl font-medium text-red-500" id="m-slip-count"></div><div class="text-xs text-gray-500 mt-1">Projects slipping</div></div>
       <div class="bg-gray-50 rounded-lg p-3 text-center"><div class="text-2xl font-medium text-amber-500" id="m-slip-avg"></div><div class="text-xs text-gray-500 mt-1">Avg slip (wks)</div></div>
@@ -272,6 +271,10 @@
   </div>
 
   <div class="mt-6 pt-3 border-t border-gray-100 text-xs text-gray-400" id="footer"></div>
+<script>
+  const lu = document.getElementById('last-updated');
+  if (lu && D.updated_at) lu.textContent = 'Updated ' + D.updated_at;
+</script>
 </div>
 
 <script>
